@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { StyleSheet, Text, KeyboardAvoidingView } from "react-native";
 
 import { Input, Button, ErrorText } from "../components/Form";
+import { TEST_IDS } from "./utils"
 
 const styles = StyleSheet.create({
   container: {
@@ -105,7 +106,7 @@ export default () => {
         error={passwordErrorMsg}
       />
       <ErrorText messages={[usernameErrorMsg, passwordErrorMsg]} />
-      <Button text="Login" onPress={submit.set} />
+      <Button testID={TEST_IDS.SIGN_IN_BUTTON} text="Login" onPress={submit.set} />
     </KeyboardAvoidingView>
   );
 };

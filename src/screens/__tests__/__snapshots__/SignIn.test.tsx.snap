@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SignIn handles valid input submission 1`] = `
+Array [
+  Array [
+    "https://jsonplaceholder.typicode.com/users",
+    Object {
+      "body": "{\\"username\\":{\\"value\\":\\"example\\",\\"valid\\":true},\\"password\\":{\\"value\\":\\"asdf\\",\\"valid\\":true}}",
+      "method": "POST",
+    },
+  ],
+]
+`;

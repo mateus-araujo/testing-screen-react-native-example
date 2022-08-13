@@ -49,26 +49,7 @@ const useLoginFormState = ({ navigation }) => {
     },
     submit: {
       value: submit,
-      set: () => {
-        setSubmit(true);
-
-        if (isUsernameValid && isPasswordValid) {
-          fetch("https://jsonplaceholder.typicode.com/users", {
-            method: "POST",
-            body: JSON.stringify({
-              username,
-              password,
-            }),
-          })
-            .then((response) => response.json())
-            .then(() => {
-              navigation.push("App");
-            })
-            .catch((error) => {
-              console.log("error", error);
-            });
-        }
-      },
+      set: setSubmit,
     },
   };
 };
@@ -86,8 +67,28 @@ export default () => {
   }
 
   if (submit.value && !password.valid) {
-    passwordErrorMsg = "Invalid password";
+    passwordErrorMsg = "Invalid password.";
   }
+
+  const handleSubmit = () => {
+    submit.set(true);
+
+    if (username.valid && password.valid) {
+      fetch("https://jsonplaceholder.typicode.com/users", {
+        method: "POST",
+        body: JSON.stringify({
+          username,
+          password,
+        }),
+      })
+        .then(() => {
+          navigation.navigate("App");
+        })
+        .catch((error) => {
+          console.log("error", error);
+        });
+    }
+  };
 
   return (
     <KeyboardAvoidingView style={styles.container} behavior="position">
@@ -97,6 +98,7 @@ export default () => {
         placeholder="example"
         onChangeText={username.set}
         error={usernameErrorMsg}
+        testID={TEST_IDS.SIGN_IN_USERNAME_INPUT}
       />
       <Input
         label="Password"
@@ -104,9 +106,10 @@ export default () => {
         secureTextEntry
         onChangeText={password.set}
         error={passwordErrorMsg}
+        testID={TEST_IDS.SIGN_IN_PASSWORD_INPUT}
       />
       <ErrorText messages={[usernameErrorMsg, passwordErrorMsg]} />
-      <Button testID={TEST_IDS.SIGN_IN_BUTTON} text="Login" onPress={submit.set} />
+      <Button testID={TEST_IDS.SIGN_IN_BUTTON} text="Login" onPress={handleSubmit} />
     </KeyboardAvoidingView>
   );
 };

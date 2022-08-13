@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const useLoginFormState = ({ navigation }) => {
+const useLoginFormState = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [submit, setSubmit] = useState(false);
@@ -57,18 +57,10 @@ const useLoginFormState = ({ navigation }) => {
 export default () => {
   const navigation = useNavigation();
 
-  const { username, password, submit } = useLoginFormState({ navigation });
+  const { username, password, submit } = useLoginFormState();
 
-  let usernameErrorMsg;
-  let passwordErrorMsg;
-
-  if (submit.value && !username.valid) {
-    usernameErrorMsg = "Invalid username.";
-  }
-
-  if (submit.value && !password.valid) {
-    passwordErrorMsg = "Invalid password.";
-  }
+  const usernameErrorMsg = submit.value && !username.valid? "Invalid username." : undefined;
+  const passwordErrorMsg = submit.value && !password.valid ? "Invalid password." : undefined;
 
   const handleSubmit = () => {
     submit.set(true);

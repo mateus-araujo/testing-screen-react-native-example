@@ -1,3 +1,4 @@
+import { useNavigation } from "@react-navigation/native";
 import React, { useState } from "react";
 import { StyleSheet, Text, KeyboardAvoidingView } from "react-native";
 
@@ -71,7 +72,9 @@ const useLoginFormState = ({ navigation }) => {
   };
 };
 
-export default ({ navigation }) => {
+export default () => {
+  const navigation = useNavigation();
+
   const { username, password, submit } = useLoginFormState({ navigation });
 
   let usernameErrorMsg;
